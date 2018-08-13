@@ -1,0 +1,14 @@
+logging:
+  level: INFO
+  loggers:
+    com.srlpunto: DEBUG
+
+server:
+  rootPath: /api/
+
+  applicationConnectors:
+    - type: http
+      port: 9292
+  adminConnectors:
+    - type: http
+      port: 9293

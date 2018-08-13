@@ -1,0 +1,23 @@
+server:
+  rootPath: /api/
+
+  applicationConnectors:
+    - type: http
+      port: 8095
+  adminConnectors:
+    - type: http
+      port: 8096
+
+#metrics:
+#  reporters:
+#  - type: influxdb
+#    sender:
+#      type: http
+#      database: telegraf
+
+mongoHost : ds119652.mlab.com
+mongoPort : 19652
+mongoDB : usuariok
+mongoUser : admin
+mongoPass : admin123
+collectionName: userData
