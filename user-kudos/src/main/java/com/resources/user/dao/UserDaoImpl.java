@@ -5,9 +5,15 @@ import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
+import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * Created by Brenda on 05/08/2018.
@@ -23,11 +29,11 @@ public class UserDaoImpl implements UserDao {
         this.collection = collection;
     }
 
-    public long create(UserData userData) {
+    public boolean create(UserData userData) {
         Gson gson = new Gson();
         String json = gson.toJson(userData);
         collection.insertOne(new Document(BasicDBObject.parse(json)));
-        return 0;
+        return true;
     }
 
     public void delete(String userMongoID) {
@@ -42,15 +48,16 @@ public class UserDaoImpl implements UserDao {
                         Integer.valueOf(value.get("quantityKudo").toString()))).into(new ArrayList<>());
     }
 
-    public Object getById(String userMongoID) {
-        return null;
+    public Optional getById(String userMongoID) {
+        return Optional.ofNullable(collection.find(eq("_id", new ObjectId(userMongoID))).map(value ->
+                new UserData(value.get("_id").toString(), value.get("nickName").toString(),
+                value.get("userName").toString(), Integer.valueOf(value.get("quantityKudo").toString()))).first());
     }
 
-    public List<UserData> getByNickName(String nickName) {
-        return null;
-    }
-
-    public List<UserData> getByUserName(String userName) {
-        return null;
+    @Override
+    public void update(UserData userData) {
+        Bson newValue = new Document("quantityKudo", userData.getQuantityKudo());
+        Bson updateOperationDocument = new Document("$set", newValue);
+        collection.updateOne(eq("_id", new ObjectId(userData.getUserMongoId())), updateOperationDocument);
     }
 }

@@ -7,7 +7,6 @@ import lombok.Data;
  */
 @Data
 public class UserData {
-    private long userId;
     private String userMongoId;
     private String nickName;
     private String userName;
@@ -21,14 +20,6 @@ public class UserData {
         this.nickName = nickName;
         this.userName = userName;
         this.quantityKudo = quantityKudo;
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
     }
 
     public String getUserMongoId() {

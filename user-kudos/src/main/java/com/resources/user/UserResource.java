@@ -1,6 +1,7 @@
 package com.resources.user;
 
 import com.api.UserData;
+import com.codahale.metrics.annotation.Timed;
 import com.resources.user.service.UserService;
 import io.dropwizard.hibernate.UnitOfWork;
 import org.eclipse.jetty.http.HttpStatus;
@@ -13,10 +14,12 @@ import javax.ws.rs.core.Response;
 /**
  * Created by Brenda on 05/08/2018.
  */
-@Path("/users")
+@Path(UserResource.NAME)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserResource {
+    public static final String NAME = "users";
+
     private final UserService userService;
 
     @Inject
@@ -28,8 +31,8 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response add(UserData userData) {
         try {
-            long id = this.userService.create(userData);
-            return Response.ok(id).build();
+            boolean res = this.userService.create(userData);
+            return Response.ok(res).build();
         } catch (NotFoundException e) {
             return Response.status(HttpStatus.NO_CONTENT_204).build();
         }
@@ -39,5 +42,25 @@ public class UserResource {
     @UnitOfWork
     public Response getAll() {
         return Response.ok(userService.getAll(1, 25)).build();
+    }
+
+    @GET
+    @Path("{id}")
+    @Timed
+    public Response getById(@PathParam("id") String userId) {
+        Object object = userService.getById(userId);
+        if (object != null) {
+            return Response.ok(userService.getById(userId)).build();
+        } else {
+            return Response.noContent().build();
+        }
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Timed
+    public Response delete(@PathParam("id") String userId) {
+        userService.delete(userId);
+        return Response.ok().build();
     }
 }
