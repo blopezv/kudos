@@ -1,0 +1,54 @@
+<h1>Kudos</h1>
+<hr>
+
+
+<div class="row animated fadeIn fast">
+  <div class="col-md-12 text-right">
+    <button [routerLink] = "['/kudo', 'nuevo'] " type="button" class="btn btn-outline-primary" name="buttom">
+      Nuevo Kudo
+    </button>
+  </div>
+</div>
+<br>
+
+
+<div class="row animated fadeIn fast">
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>#</th>
+            <th>Usuario</th>
+            <th>Fecha</th>
+            <th>Persona</th>
+            <th>Lugar</th>
+            <th>Tema</th>
+            <th>Texto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let k of kudos | keys ; let i = index;">
+            <td> {{ i + 1 }} </td>
+            <td> {{ kudos[k].usuario }} </td>
+            <td> {{ kudos[k].fecha }} </td>
+            <td> {{ kudos[k].persona }} </td>
+            <td> {{ kudos[k].lugar }} </td>
+            <td> {{ kudos[k].tema }} </td>
+            <td> {{ kudos[k].texto }} </td>
+            <td>
+              <button [routerLink] = "['/kudo',k] "
+                type="button" class="btn btn-outline-success">
+                Editar
+              </button>
+              <button (click)='eliminarKudo(k)'
+                type="button" class="btn btn-outline-danger">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

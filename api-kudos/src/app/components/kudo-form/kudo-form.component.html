@@ -1,0 +1,50 @@
+<h3> {{ titulo }} Kudo</h3>
+<br>
+<button routerLink="/kudos" class="btn btn-outline-danger">
+  Regresar
+</button>
+<hr>
+
+
+<div class="row animated fadeIn fast">
+  <div class="col-md-12 text-left">
+    <form (ngSubmit)="guardar()" #forma="ngForm">
+      <div class="form-group">
+        <label>Usuario</label>
+        <input type="text" name="usuario" class="form-control" placeholder="Usuario ..." [(ngModel)]="kudo.usuario" required>
+      </div>
+      <div class="form-group">
+        <label>Fecha</label>
+        <input type="text" name="fecha" class="form-control" placeholder="Fecha ..." [(ngModel)]="kudo.fecha" required>
+      </div>
+
+      <div class="form-group">
+        <label>Persona</label>
+        <input type="text" name="persona" class="form-control" placeholder="Persona ..." [(ngModel)]="kudo.persona" required>
+      </div>
+      <div class="form-group">
+        <label>Lugar</label>
+        <input type="text" name="lugar" class="form-control" placeholder="Lugar ..." [(ngModel)]="kudo.lugar" required>
+      </div>
+      <div class="form-group">
+        <label>Tema</label>
+        <select class="form-control" name="tema" [(ngModel)]="kudo.tema">
+          <option value="amistad">Amistad</option>
+          <option value="motivacion">Motivacion</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Texto</label>
+        <textarea type="text" name="texto" class="form-control" [(ngModel)]="kudo.texto" required>
+        </textarea>
+      </div>
+
+      <div class="form-group">
+        <button [disabled]="!forma.valid" type="submit" class="btn btn-outline-primary">
+          Guardar Cambios
+        </button>
+      </div>
+    </form>
+
+  </div>
+</div>
