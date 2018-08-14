@@ -26,7 +26,7 @@ public class RabbitResource {
     @Path("suscribe")
     public Response suscribe() throws NoSuchAlgorithmException, KeyManagementException, URISyntaxException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setUri("amqp://lkwokcne:giKDZvjthU_POwmzXEie7OqlmT0Diy4i@lion.rmq.cloudamqp.com/lkwokcne");
+        factory.setUri("amqp://niewcprb:VpUcAVvXOZf7xxBLf-aTK_XORREfUHW_@lion.rmq.cloudamqp.com/niewcprb");
         factory.setConnectionTimeout(50000);
         try {
             Connection connection = factory.newConnection();

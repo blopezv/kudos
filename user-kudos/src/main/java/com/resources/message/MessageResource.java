@@ -12,10 +12,11 @@ import javax.ws.rs.core.Response;
 /**
  * Created by Brenda on 05/08/2018.
  */
-@Path("/kudos_message")
+@Path(MessageResource.NAME)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class MessageResource {
+    public static final String NAME = "kudos_message";
     private final MessageService messageService;
 
     public MessageResource(MessageService messageService) {
